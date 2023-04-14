@@ -4,17 +4,14 @@ import matplotlib.pyplot as plt
 import scipy.integrate as integrate
 import matplotlib.animation as animation
 
-plt.rcParams['animation.ffmpeg_path'] = r'/Volumes/Data/Youtube/[ffmpeg]/ffmpeg'
 FIGSIZE = (16, 9)
-DPI = 120  # 240 For 4K, 120 for 1080p, 80 for 720p
-
+DPI = 120
 G = 9.8
 L1, L2 = 1.0, 0.8
 M1, M2 = 1.2, 1.0
 
 
 def derivs(state, t):
-    # http://www.physics.usyd.edu.au/~wheat/dpend_html/solve_dpend.c
 
     res = np.zeros_like(state)
     res[0] = state[1]
@@ -50,8 +47,6 @@ state = np.radians([th1, w1, th2, w2])
 res = integrate.odeint(derivs, state, t)
 x1, y1 = L1 * sin(res[:, 0]), -L1 * cos(res[:, 0])
 x2, y2 = L2 * sin(res[:, 2]) + x1, -L2 * cos(res[:, 2]) + y1
-
-###############################################################################
 
 fig = plt.figure(figsize=FIGSIZE, dpi=DPI)
 ax = fig.add_subplot(111)
